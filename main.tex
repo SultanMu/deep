@@ -1,0 +1,38 @@
+\documentclass[12pt]{report}
+\usepackage[english]{babel}
+\usepackage{graphicx}
+\usepackage{indentfirst}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{amsmath}
+
+
+%Bibliography
+\usepackage[
+	style=numeric,
+	backend=biber,
+  babel = other
+]{biblatex}
+\addbibresource{data.bib}
+
+\begin{document}
+
+\pagenumbering{Roman}
+%Cover
+\input{intro/cover}
+%Table of contents
+\pagenumbering{Roman}
+\section*{Abstract}
+caca
+\clearpage
+
+
+\tableofcontents
+\clearpage
+
+\pagenumbering{arabic}
+\input{chapters/one}
+
+\clearpage
+\printbibliography
+\end{document}
