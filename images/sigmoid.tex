@@ -1,0 +1,33 @@
+\documentclass[varwidth=false, border=2pt]{standalone}
+
+\usepackage{pgfplots}
+\usepackage{tikz}
+
+\begin{document}
+\begin{tikzpicture}
+    \begin{axis}[
+        axis x line=bottom,
+        axis y line=middle,
+        x tick label style={/pgf/number format/fixed,
+                            /pgf/number format/fixed zerofill,
+                            /pgf/number format/precision=1},
+        y tick label style={/pgf/number format/fixed,
+                            /pgf/number format/fixed zerofill,
+                            /pgf/number format/precision=1},
+        ytick={0,0.5,1},
+        xtick={-8,-4,0,4,8},
+        xmin=-8,     % start the diagram at this x-coordinate
+        xmax= 8,    % end   the diagram at this x-coordinate
+        ymin= 0,     % start the diagram at this y-coordinate
+        ymax= 1,   % end   the diagram at this y-coordinate
+        %axis background/.style={fill=white},
+        xlabel=$x$,
+        ylabel=$s(x)$,
+        tick align=outside,
+        enlargelimits=false]
+      % plot the stirling-formulae
+      \addplot[domain=-8:8, red, ultra thick, samples=500] {1/(1+exp(-1*x))};
+      %\addplot[domain=-4:4, blue, ultra thick] {1/(1+exp(-10*x))};
+    \end{axis}
+\end{tikzpicture}
+\end{document}
