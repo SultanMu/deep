@@ -27,11 +27,15 @@ How much the knob must be changed? It depends on how important is that knob for 
 \end{equation}
 
 \subsection{The Correction}
-Once we can calculate the error depending on one parameter we are ready to make the correction to the network. The process is simple, first you feed the input layer with some data, then you get the result and compare it with the target and finally you make this adjustment for each weight and bias ~\cite[Chapter~7]{rojas}:
+Once we can calculate the error depending on one parameter we are ready to make the correction to the network. The process is simple, first you feed the input layer with some data, then you get the result and compare it with the target and finally you make this adjustment for each weight and bias (the $\alpha$ is the learning constant and represent how far is the next step in the gradient descent) ~\cite[Chapter~7]{rojas}:
 \begin{equation}
 \begin{aligned}
-  w^{(k)}_{ij} & = & w^{(k)}_{ij} - \alpha \frac{\partial e}{\partial w^{(k)}_{ij}} \\
-  u^{(k)}_{i} & = & u^{(k)}_{i} - \alpha \frac{\partial e}{\partial u^{(k)}_{i}}
+  w^{(k)}_{ij} & \Rightarrow & w^{(k)}_{ij} - \alpha \frac{\partial e}{\partial w^{(k)}_{ij}} \\
+  u^{(k)}_{i} &  \Rightarrow & u^{(k)}_{i} - \alpha \frac{\partial e}{\partial u^{(k)}_{i}}
 \end{aligned}
+\label{eq:corr}
 \end{equation}
-In the adjustment the $\alpha$ is the learning constant and represent how far is the next step in the gradient descent.
+
+To develop a working neural network is now possible with all this knwoledge. First we have to declare the architecture of our net. Then we set random weights and biases and we start teaching the net. Imagine you have a 10.000 images dataset, then you take 90\% of those images to train the net, and the other 10\% for testing how well we have developed it. We feed the network with one of those images from the train set and make the correction as we have seen in \ref{eq:corr}. Ideally we should do it with all the train set but as the size of that set could be (and should be) huge, we just take a small batch representative and apply the correction for each image of the batch. Once we have done it we have complete one epoch. With just one epoch the network still giving us weird answers, so what we have to do is to train the network with several epochs and then our network is trained and ready.
+
+To measure how intelligent our network is you can use the test set of images to calculate the accuracy.
