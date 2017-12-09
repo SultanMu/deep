@@ -80,6 +80,7 @@ neural_network = multilayer_perceptron(X)
 \end{lstlisting}
 \subsection{Training the Model}
 Is the moment of training the network. For that purpose we have to define what is the error and which method we are going to use to fix it. The error or the loss is calculated giving our model and the placeholder of the output. For fixing that loss we are going to apply the gradient descent optimizer and we have to define what we want to reduce and what is the learning constant.
+
 \begin{lstlisting}[language=python]
 #Define the loss or the error
 loss_op = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(
@@ -88,3 +89,36 @@ loss_op = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(
 optimizer = tf.train.GradientDescentOptimizer(learning_constant)
                       .minimize(loss_op)
 \end{lstlisting}
+
+Next step is iterate trought all the epochs. In each one the program should take one batch of images and their expected output, feed the network with it, and finally apply the optimizer we have already defined. The task of running the epochs could not be done in such a simple way as we have defined the model. The train should be performed inside a TensorFlow session after all the declares variables are initialized. The session allows not just declare the model but perform operations.
+
+\begin{lstlisting}[language=python]
+#Initializing the variables
+init = tf.global_variables_initializer()
+#Create a session
+with tf.Session() as sess:
+    sess.run(init)
+    #Training epoch
+    for epoch in range(number_epochs):
+        #Get one batch of images
+        batch_x, batch_y = mnist.train.next_batch(batch_size)
+        #Run the optimizer feeding the network with the batch
+        sess.run(optimizer, feed_dict={X: batch_x, Y: batch_y})
+        #Display the epoch (just every 100)
+        if epoch % 100 == 0:
+            print("Epoch:", '%d' % (epoch))
+\end{lstlisting}
+
+\subsection{Evaluating the Model}
+The network is already trained so it is the time of test how well we have designed it and how much it has learned. One part of the date set was reserved for testing. The outputs of the network are not as perfect as one vector with all $0$ but one $1$ pointing the solution. Actually it is more close to something like $[0.01,0.94,0.02,0.025,0.025,0.06,0.01,0.01,0.4,0.04]$ because the network is not absolutely sure about the answer so the output is something like "I am 94\% sure that this is a 1 but it could be a 8 in a 4\% and a bit percentage for the other options". To transform that answers the \textit{softmax} function should be applied. It takes the bigger number and transform it to a $1$ while change the other smallers numbers with $0$s. Now we define what is a correct answer with \textit{tf.equal}, one prediction is correct if it is equal to the expected output, easy. To finish we define the accuracy to print it and feed the network wiht the test subset.
+
+\begin{lstlisting}[language=python]
+# Test model
+pred = tf.nn.softmax(neural_network)  # Apply softmax to logits
+correct_prediction = tf.equal(tf.argmax(pred, 1), tf.argmax(Y, 1))
+# Calculate accuracy
+accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
+print("Accuracy:", accuracy.eval({X: mnist.test.images, Y: mnist.test.labels}))
+\end{lstlisting}
+
+If we execute the code we get an accuracy close to 90\%. It might seem that is a great result, it answer correctly 9 out of 10 times. But in machine learning this result is pretty bad, it is normal because the network used is the most simple network but compared with other kind of models it is a bit shaming.

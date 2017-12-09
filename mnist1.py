@@ -47,26 +47,25 @@ def multilayer_perceptron(input_d):
     out_layer = tf.add(tf.matmul(layer_2, w3),b3)
     return out_layer
 
-# Create model
+#Create model
 neural_network = multilayer_perceptron(X)
 
-# Define loss and optimizer
+#Define loss and optimizer
 loss_op = tf.reduce_mean(tf.nn.softmax_cross_entropy_with_logits(logits=neural_network,labels=Y))
 optimizer = tf.train.GradientDescentOptimizer(learning_constant).minimize(loss_op)
-# Initializing the variables
-init = tf.global_variables_initializer()
 
+#Initializing the variables
+init = tf.global_variables_initializer()
+#Create a session
 with tf.Session() as sess:
     sess.run(init)
-
-    # Training cycle
+    #Training epoch
     for epoch in range(number_epochs):
-        # Loop over all batches
+        #Get one batch of images
         batch_x, batch_y = mnist.train.next_batch(batch_size)
-        # Run optimization op (backprop) and cost op (to get loss value)
+        #Run the optimizer feeding the network with the batch
         sess.run(optimizer, feed_dict={X: batch_x, Y: batch_y})
-        # Compute average loss
-        # Display logs per epoch step
+        #Display the epoch
         if epoch % 100 == 0:
             print("Epoch:", '%d' % (epoch))
 
