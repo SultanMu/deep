@@ -1,7 +1,7 @@
 # Deep Learning with Neural Networks
 This project wants to show a basic explanation of how neural networks work. You can find one PDF with all the documentation [here](https://github.com/serizba/deep/blob/master/main.pdf "Documentation"). Note that at the moment only a simple multilayer perceptron and it implementation in TensorFlow is showed.
 
-The tutorial is also in my [personal site](https://serizba.github.io/deep/learning/2017/12/09/neural-networks.html "serizba")
+The tutorial is also in my [personal site](https://serizba.github.io "serizba"). The [first part](https://serizba.github.io/neural-networks.html "Neural Networks") of the tutorial explain how a neural network works while the [second part](https://serizba.github.io/multilayer-perceptron.html "Implementing neural network in TensorFlow"). is about the implementation.
 
 The structure of the project is simple:
 ```
@@ -38,5 +38,5 @@ Maths basis for understanding the algorithms and the used nomenclature. The Late
 ### Back Propagation
 The basic algorithm for creating a multilayer perceptron. What is back propagation? How it works? How is the error of the network measured? How the back propagation correct the network? The Latex code of the section is [here](https://github.com/serizba/deep/blob/master/chapters/one/backp.tex "Latex code").
 
-### implementation
+### Implementation
 A implementation in TensorFlow. Explaining each line of Python code and how this code is connected with the explanation of back propagation. Here you will create a neural network with two hidden layers that  recognize hand written digits (MNIST data set). All the Python code is [here](https://github.com/serizba/deep/blob/master/mnist1.py "Python code"), the documentation is in the [main document](https://github.com/serizba/deep/blob/master/main.pdf "Documentation") and the Latex code of the section is [here](https://github.com/serizba/deep/blob/master/chapters/one/impl.tex "Latex code").
